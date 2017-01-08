@@ -18,6 +18,12 @@
 
 具体实例参见**Person**类，基于xml配置
 
+> bean作用域
+1. Singleton：单例模式［默认］，整个spring容器，bean实例只有一个
+2. Prototype：原型模式，通过getBean方法获取Bean时，都将重新产生一个新的bean实例
+3. Session：每次的http session都将产生一个新的实例
+4. Request：每次http请求，都将产生一个新的实例
+
 > springFramework核心
 1. Core Spring container[DI]
     1. Beans
