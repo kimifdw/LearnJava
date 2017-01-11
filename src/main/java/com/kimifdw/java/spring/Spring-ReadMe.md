@@ -1,4 +1,9 @@
 # spring知识点纪录
+- 在spring中，所有的bean都是由BeanFactory来管理的。
+- FactoryBean，一个产生或修饰对象生成的工厂bean，用到的设计模式：工厂模式／修饰器模式
+> ioc的核心类
+1. BeanFactory
+2. ApplicationContext
 > bean的生命周期
 1. Spring instantiates the bean. 
 - 实例化bean

@@ -3,9 +3,11 @@ package com.kimifdw.java.spring;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 
 /**
  * ApplicationContext Bean生命周期
@@ -86,13 +88,25 @@ class MyBeanPostProcessor implements BeanPostProcessor {
 class PersonTest {
     public static void main(String[] args) {
         System.out.println("开始初始化容器");
-        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-
+//        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        // 利用beanFactory获取ioc容器
+        // 1. 创建IOC配置文件的抽象资源
+        ClassPathResource classPathResource = new ClassPathResource("applicationContext.xml");
+        // 2. 创建BeanFactory
+        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
+        // 3. 创建载入BeanDefinition的读取器
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
+        // 4. 读取配置资源
+        reader.loadBeanDefinitions(classPathResource);
         System.out.println("xml加载完毕");
-        Person person1 = (Person) ac.getBean("person1");
+
+        Person person1 = (Person) defaultListableBeanFactory.getBean("person1");
         System.out.println(person1);
         System.out.println("关闭容器");
+        defaultListableBeanFactory.destroySingletons();
+
+
         // 先执行destroy，后执行myDestroy方法
-        ((ClassPathXmlApplicationContext) ac).close();
+//        ((ClassPathXmlApplicationContext) ac).close();
     }
 }
