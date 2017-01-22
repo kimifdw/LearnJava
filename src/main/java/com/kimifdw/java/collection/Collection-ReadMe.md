@@ -15,9 +15,10 @@
 3. 在多线程环境的并发访问，可以考虑用Collections.synchronizedList();
 4. 允许在iterators时，进行insert和remove操作
 5. 时间复杂度(平均为O(n/4),最坏O(n/2))
-    1. add(E element)为O(1)
+    1. add(E element)为O(1)，在末尾插入元素
     2. add(int index,E element)最好为O(1),最差为O(n/4)
     3. remove(int index)为O(n/4)
+6. 在当作栈或者队列时，ArrayDeque有比LinkedList更好的性能
 ## ArrayList和LinkedList总结
 1. ArrayList在遍历元素方面有优势*但和LinkedList差距不大*，而LinkedList则在添加、删除元素时有优势;
 2. LinkedList的主要优势在于允许在iterator时插入和删除元素；
