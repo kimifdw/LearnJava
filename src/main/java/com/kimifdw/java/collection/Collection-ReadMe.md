@@ -23,8 +23,16 @@
 1. ArrayList在遍历元素方面有优势*但和LinkedList差距不大*，而LinkedList则在添加、删除元素时有优势;
 2. LinkedList的主要优势在于允许在iterator时插入和删除元素；
 3. ArrayList默认的capacity为10(java from 1.4-1.8),在初始化ArrayList时，能事先预估好最大的capacity；
+## Stack和Queue
+1. 要使用队列，首选**ArrayDeque**;ArrayDeque不允许放null值
+2. ArrayDeque底层通过**循环数组**实现,非线程安全的；
+3. `elements[head = (head - 1) & (elements.length - 1)] = e;//2.下标是否越界`涉及的知识点比较多，还需要进一步理解。
+4. 方法展示
+    1. pollFirst(): 删除并返回Deque首端元素。
+    2. pollLast(): 删除并返回Deque尾端元素；
+    3. peekFirst(): 返回但不删除Deque首端元素；
+    4. peekLast()：返回但不删除Deque尾端元素;
 
-
-    
+   
 
 
