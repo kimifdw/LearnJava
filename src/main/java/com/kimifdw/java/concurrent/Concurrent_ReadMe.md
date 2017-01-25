@@ -39,6 +39,57 @@
 5. 重量级锁
     1. 线程竞争不使用自旋，不会消耗CPU；
     2. 适用场景：追求吞吐量；同步块执行时间较长
-##
-    
+## JAVA线程池的分析和使用
+1. 好处：
+    1. 降低资源消耗。
+    2. 提高响应速度。
+    3. 提高线程的可管理性。
+2. 使用
+    `new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,milliseconds,runnableTaskQueue,handler)`
+    1. corePoolSize(线程池的基本大小)：当提交一个任务到线程池时，线程池会创建一个线程来执行任务，即使其他空闲的基本线程能够执行新任务也会创建线程，等到需要执行的任务数大于线程池基本大小时不再创建。如果调用了线程池的**prestartAllCoreThreads**方法，线程池会提前创建并启动所有基本线程。
+    2. runnableTaskQueue(任务队列)：用于保存等待执行的任务的阻塞队列，队列里处处的是以前提交的任务，需要等待线程空闲时执行。
+        * ArrayBlockingQueue：基于数组结构的有界阻塞队列，FIFO（先进先出）
+        * LinkedBlockingQueue：基于链表结构的阻塞队列，FIFI（先进先出），Executors.newFixedThreadPool()【设置corePoolSize==maximumPoolSize】使用这个队列
+        * SynchronousQueue: 不存储元素的阻塞队列。每个插入操作必须等到另一个线程调用移除操作，Executors.newCachedThreadPool()使用这个队列
+        * PriorityBlockingQueue: 一个具有优先级的无限阻塞队列。
+    3. maximumPoolSize(线程池的最大值)   
+    4. ThreadFactory：设置创建线程的工厂
+    5. RejectedExecutionHandler(饱和策略)：当线程池处于饱和状态时采取的处理新提交的新任务的策略。默认AbortPolicy
+        * AbortPolicy: 直接抛出异常；
+        * CallerRunsPolicy: 只能调用者所在线程来运行任务；
+        * DiscardOldestPolicy: 丢弃队列里最近的一个任务，并执行当前任务；
+        * DiscardPolicy: 不处理，丢弃掉
+    6. keepAliveTime（线程活动保持时间）：工作线程空闲后，保持存活的时间。
+    7. TimeUnit(线程活动保持的单位)
+3. 提交任务
+    1. execute(): 没有返回值
+    2. submit(): 返回Future返回值。*InterruptedException*(处理中断异常)；*ExecutionException*(处理无法执行任务异常)
+4. 线程池关闭
+    1. 原理：遍历线程池中的工作线程，逐个调用线程的interrupt方法来中断线程
+    2. isShutdown(): 调用shutdown和shutdownnow都会变为true；
+    3. isTerminaed()：所有任务已关闭后，才表示线程池关闭成功。
+5. 线程池流程
+    1. 判断基本线程池是否已满；
+    2. 判断工作队列是否已满；
+    3. 判断整个线程池是否已满；
+6. 合理的配置线程池
+    1. 分析任务特性
+        1. 任务性质：CPU密集型任务，IO密集型任务和混合型任务。
+            1. CPU密集型：尽可能小的线程（Ncpu+1），例如压缩和解压缩
+            2. IO密集型：尽可能多的线程(2*Ncpu)
+            3. `Runtime.getRuntime().availableProcessors()`：当前设备的CPU个数
+        2. 任务优先级：高、中、低。使用*PriorityBlockingQueue*队列
+        3. 任务的执行时间：长、中、短。使用不同规模的线程池来处理
+        4. 任务的依赖性：是否依赖其他系统资源。设置线程数尽可能大。
+    2. 建议使用*有界对列*
+    3. 动态递增的增加线程池数目
+7. 线程池的监控
+    1. taskCount: 线程池需要执行的任务数量
+    2. completedTaskCount: 线程池在运行过程中已完成的任务数量。
+    3. largestTaskCount：曾经创建过的最大线程数量
+    4. getPoolSize: 线程池的线程数量
+    5. getActiveCount: 获取活动的线程数
+    6. 重写线程池的beforeExecute、afterExecute和terminated方法。
+8. 应急处理：如果在创建线程池的时候，指定的*corePoolSize<maximumPoolsize*是会出现你说的这种情况
+ 
 
