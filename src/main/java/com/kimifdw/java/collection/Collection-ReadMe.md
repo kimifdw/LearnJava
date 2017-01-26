@@ -1,6 +1,7 @@
 # 集合框架知识点总结
 1. 容器只能放对象，通过泛型机制实现。但其实质是由于java的单继承机制，因为所有的对象都是Object的子类。
 2. 接口，目前存在14种容器接口，实际开发中常用的有ArrayList，LinkedList，HashMap,HashSet,LinkedHashMap.
+3. 几乎所有的数据结构都采用数组和模拟指针这两种结构组合实现；
 ## ArrayList
 1. 顺序容器，即元素存放的数据与放进去的顺序相同，允许放入null元素，底层通过**数组**实现。
 2. 多线程环境，需要使用Vector。
@@ -16,7 +17,7 @@
 4. 允许在iterators时，进行insert和remove操作
 5. 时间复杂度(平均为O(n/4),最坏O(n/2))
     1. add(E element)为O(1)，在末尾插入元素
-    2. add(int index,E element)最好为O(1),最差为O(n/4)
+    2. add(int index,E element)最好为O(1),最差为O(n/4)ø
     3. remove(int index)为O(n/4)
 6. 在当作栈或者队列时，ArrayDeque有比LinkedList更好的性能
 ## ArrayList和LinkedList总结
@@ -32,7 +33,8 @@
     2. pollLast(): 删除并返回Deque尾端元素；
     3. peekFirst(): 返回但不删除Deque首端元素；
     4. peekLast()：返回但不删除Deque尾端元素;
-
+## HashMap
+1. 数据结构：链表结构
    
 
 

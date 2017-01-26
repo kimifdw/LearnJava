@@ -9,6 +9,8 @@
 7. 写命中(write hit): 当处理器将操作数写回到一个内存缓存的区域时，它首先会检查这个缓存的内存地址是否在缓存行中，如果存在一个有效的缓存行，则将处理器这个操作数写回到内存；
 8. 写缺失（write misses the cache)：一个有效的缓存行被写入到不存在的内存区域；
 9. CAS(Compare and Swap): 比较并设置。
+10. 哈希算法：是一种将任意内容的输入转换成相同长度输出的加密方式；
+11. 哈希表：根据设定的哈希函数和处理冲突方法，将一组关键字映射到一个有限的地址区间上，并以关键字所在地址区间中的象作为记录在表中的存储位置；
 ## volatile
 1. 定义：java编程语言允许线程访问共享变量，为了确保共享变量能被准确和一致的更新，线程应该确保通过排他锁单独获得这个变量。
 2. 用于修饰在多线程环境下某一变量值的一致性；
@@ -89,7 +91,14 @@
     3. largestTaskCount：曾经创建过的最大线程数量
     4. getPoolSize: 线程池的线程数量
     5. getActiveCount: 获取活动的线程数
-    6. 重写线程池的beforeExecute、afterExecute和terminated方法。
+    6. 重写线程池的beforeExecute、afterExecute和terminated方法。ø
 8. 应急处理：如果在创建线程池的时候，指定的*corePoolSize<maximumPoolsize*是会出现你说的这种情况
+## ConcurrentHashMap
+1. 在并发情况下不要使用HashMap，导致CPU利用率100%；
+2. HashTable容器使用synchronized来保证线程安全，但效率低下，原因是所有访问HashTable线程都必须竞争同一把锁
+3. 由*Segment*数组结构和*HashEntry*数组结构组成。Segment是一把ReentrantLock锁
+4. get方法，用volatile替换锁，所以读取效率比HashTable高；put方法需要用到锁
+
  
+
 
