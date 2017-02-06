@@ -19,6 +19,8 @@
 17. 内存顺序冲突：内存顺序冲突一般是由假共享引起，假共享是指多个CPU同时修改同一个缓存行的不同部分而引起其中一个CPU的操作无效，当出现这个内存顺序冲突时，CPU必须清空流水线。
 18. 总线锁：使用处理器提供的一个LOCK#信号，当一个处理器在总线上输出此信号时，其他处理器的请求将被阻塞住,那么该处理器可以独占使用共享内存。
 19. 缓存锁：如果缓存在处理器缓存行中内存区域在LOCK操作期间被锁定，当它执行锁操作回写内存时，处理器不在总线上声言LOCK # 信号，而是修改内部的内存地址，并允许缓存一致性机制来保证操作的原子性。
+20. 公平访问队列：阻塞的所有生产者线程或消费者线程，当队列可用时，可以按照阻塞的先后顺序访问队列，即先阻塞的生产者线程，可以先往队列里插入元素，先阻塞的消费者线程，可以先从队列里获取元素。
+21. 工作窃取算法：指某个线程从其他队列里窃取任务来执行。优点是充分利用线程进行并行计算，并减少了线程间的竞争，缺点还是存在竞争
 ## volatile
 1. 定义：java编程语言允许线程访问共享变量，为了确保共享变量能被准确和一致的更新，线程应该确保通过排他锁单独获得这个变量。
 2. 用于修饰在多线程环境下某一变量值的一致性；
@@ -45,17 +47,17 @@
     1. 加锁：线程在执行同步块前，JVM会先在当前线程的栈桢中创建用于存储锁记录的空间，并将对象头中的Mark Word复制到锁记录中。
     2. 解锁：使用原子的CAS操作来讲Displaced Mark Word替换回到对象头；
     3. 如果始终得不到锁竞争的线程使用自旋会消耗CPU;
-    3. 适用场景：追求响应时间；同步块执行速度非常快；
+    4. 适用场景：追求响应时间；同步块执行速度非常快；
 5. 重量级锁
     1. 线程竞争不使用自旋，不会消耗CPU；
     2. 适用场景：追求吞吐量；同步块执行时间较长
 ## JAVA线程池的分析和使用
-1. 好处：
+1.  好处：
     1. 降低资源消耗。
     2. 提高响应速度。
     3. 提高线程的可管理性。
-2. 使用
-    `new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,milliseconds,runnableTaskQueue,handler)`
+2.  使用
+         `new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,milliseconds,runnableTaskQueue,handler)`
     1. corePoolSize(线程池的基本大小)：当提交一个任务到线程池时，线程池会创建一个线程来执行任务，即使其他空闲的基本线程能够执行新任务也会创建线程，等到需要执行的任务数大于线程池基本大小时不再创建。如果调用了线程池的**prestartAllCoreThreads**方法，线程池会提前创建并启动所有基本线程。
     2. runnableTaskQueue(任务队列)：用于保存等待执行的任务的阻塞队列，队列里处处的是以前提交的任务，需要等待线程空闲时执行。
         * ArrayBlockingQueue：基于数组结构的有界阻塞队列，FIFO（先进先出）
@@ -71,18 +73,18 @@
         * DiscardPolicy: 不处理，丢弃掉
     6. keepAliveTime（线程活动保持时间）：工作线程空闲后，保持存活的时间。
     7. TimeUnit(线程活动保持的单位)
-3. 提交任务
+3.  提交任务
     1. execute(): 没有返回值
     2. submit(): 返回Future返回值。*InterruptedException*(处理中断异常)；*ExecutionException*(处理无法执行任务异常)
-4. 线程池关闭
+4.  线程池关闭
     1. 原理：遍历线程池中的工作线程，逐个调用线程的interrupt方法来中断线程
     2. isShutdown(): 调用shutdown和shutdownnow都会变为true；
     3. isTerminaed()：所有任务已关闭后，才表示线程池关闭成功。
-5. 线程池流程
+5.  线程池流程
     1. 判断基本线程池是否已满；
     2. 判断工作队列是否已满；
     3. 判断整个线程池是否已满；
-6. 合理的配置线程池
+6.  合理的配置线程池
     1. 分析任务特性
         1. 任务性质：CPU密集型任务，IO密集型任务和混合型任务。
             1. CPU密集型：尽可能小的线程（Ncpu+1），例如压缩和解压缩
@@ -93,14 +95,14 @@
         4. 任务的依赖性：是否依赖其他系统资源。设置线程数尽可能大。
     2. 建议使用*有界对列*
     3. 动态递增的增加线程池数目
-7. 线程池的监控
+7.  线程池的监控
     1. taskCount: 线程池需要执行的任务数量
     2. completedTaskCount: 线程池在运行过程中已完成的任务数量。
     3. largestTaskCount：曾经创建过的最大线程数量
     4. getPoolSize: 线程池的线程数量
     5. getActiveCount: 获取活动的线程数
     6. 重写线程池的beforeExecute、afterExecute和terminated方法。ø
-8. 应急处理：如果在创建线程池的时候，指定的*corePoolSize<maximumPoolsize*是会出现你说的这种情况
+8.  应急处理：如果在创建线程池的时候，指定的*corePoolSize<maximumPoolsize*是会出现你说的这种情况
 ## ConcurrentHashMap
 1. 在并发情况下不要使用HashMap，导致CPU利用率100%；
 2. HashTable容器使用synchronized来保证线程安全，但效率低下，原因是所有访问HashTable线程都必须竞争同一把锁
@@ -111,6 +113,41 @@
 2. 循环时间长开销大
 3. 只能保证一个共享变量的原子操作。
 4. 使用*锁*机制实现原子操作
- 
+## ConcurrentLinkedQueue
+ 1. 基于链接节点的无界线程安全队列，采用先进先出的规则对节点进行排序
+ 2. 采用"wait-free"算法实现,默认情况下head节点存储的元素为空，tair节点等于head节点
+ 3. 入队列：将入队节点添加到队列的尾部
+## 阻塞队列
+1. 定义：一个支持两个附加操作的队列。（在队列为空时，获取元素的线程会等待队列变为非空；当队列满时，存储元素的线程会等待队列可用。）
+2. 处理方法
+   1. 抛出异常：当阻塞队列满时，往队列里插入元素会抛出异常；当队列为空时，从队列里获取元素时会抛出异常；
+   2. 返回特殊值：插入方法会返回是否成功，成功返回TRUE；如果队列里拿出一个元素如果没有则返回null
+   3. 一直阻塞：当阻塞队列满时，会阻塞往队列里put的生产者线程；当队列为空，会阻塞消费者线程，直到队列可用
+   4. 超时退出：当阻塞队列满时，队列会阻塞生产者线程一段时间，如果超过一定的时间，生产者线程就会退出。
+3. 7个阻塞队列
+   1. ArrayBlockingQueue：一个由数组结构组成的有界阻塞队列，按照先进先出原则对元素进行排序
+   2. LinkedBlockingQueue：一个由链表结构组成的有界阻塞队列，按照先进先出的原则，最大长度为`Integer.MAX_VALUE`
+   3. PriorityBlockingQueue ：一个支持优先级排序的无界阻塞队列。
+   4. DelayQueue：一个使用优先级队列实现的无界阻塞队列，必须实现Delayed接口，可以用于缓存系统、定时任务调度
+   5. SynchronousQueue：一个不存储元素的阻塞队列，适用于将一个线程使用的数据传递给另一个线程使用
+   6. LinkedTransferQueue：一个由链表结构组成的无界阻塞队列。
+   7. LinkedBlockingDeque：一个由链表结构组成的双向阻塞队列
+4. 实现原理
+   1. 使用通知模式实现，当生产者往满的队列里添加元素时会阻塞住生产者，当小费者消费了一个队列中的元素后，会通知生产者当前队列可用。
+   2. 利用重入锁(`ReentrantLock`)控制
+## Fork/Join框架
 
+1. 定义：用于并行执行任务的框架，是把一个大任务分割成若干个小人物，最终汇总每个小任务结果后得到大任务结果的框架
 
+2. 两个类
+
+   1. ForkJoinTask。(`RecursiveAction`：用于没有返回结果的任务；`RecursiveTask`：用于有返回的任务）
+   2. ForkJoinPool
+
+3. 实现原理
+
+   1. ForkJoinPool由`ForkJoinTask`数组[负责存放程序提交给ForkJoinPool的任务]和`ForkJoinWorkerThread`数组[负责执行这些人]组成
+   2. ForkJoinTask的fork原理。调用`ForkJoinWorkerThread`的`pushTask`方法，将任务存放在ForkJoinWorkerThread队列里，调用`signalWork()`异步的执行这个任务，然后立即返回结果。
+   3. ForkJoinTask的join方法。阻塞当前线程并等待获取结果，四种任务状态【已完成(NORMAL)、被取消(CANCELLED)、信号(SIGNAL)和异常(EXCEPTIONAL)】
+
+   ​
