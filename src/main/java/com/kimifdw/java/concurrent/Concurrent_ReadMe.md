@@ -84,7 +84,7 @@
     2. 提高响应速度。
     3. 提高线程的可管理性。
 2.  使用
-                 `new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,milliseconds,runnableTaskQueue,handler)`
+                  `new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,milliseconds,runnableTaskQueue,handler)`
     1. corePoolSize(线程池的基本大小)：当提交一个任务到线程池时，线程池会创建一个线程来执行任务，即使其他空闲的基本线程能够执行新任务也会创建线程，等到需要执行的任务数大于线程池基本大小时不再创建。如果调用了线程池的**prestartAllCoreThreads**方法，线程池会提前创建并启动所有基本线程。
     2. runnableTaskQueue(任务队列)：用于保存等待执行的任务的阻塞队列，队列里处处的是以前提交的任务，需要等待线程空闲时执行。
         * ArrayBlockingQueue：基于数组结构的有界阻塞队列，FIFO（先进先出）
@@ -140,6 +140,7 @@
 2. 循环时间长开销大
 3. 只能保证一个共享变量的原子操作。
 4. 使用*锁*机制实现原子操作
+5. 自旋的核心。由硬件支持的一个cpu不断check高速缓存的操作，为了减少线程切换到内核态。
 ## ConcurrentLinkedQueue
  1. 基于链接节点的无界线程安全队列，采用先进先出的规则对节点进行排序
  2. 采用"wait-free"算法实现,默认情况下head节点存储的元素为空，tair节点等于head节点
@@ -184,3 +185,12 @@
 1. 原理：划分为线程栈和堆。
    1. 线程堆。每个运行在java虚拟机里的线程都拥有自己的线程栈。包含了这个线程调用的方法当前执行点相关的信息。一个线程仅能访问自己的线程栈，一个线程创建的本地变量对其他线程不可见。每个线程拥有每个本地变量的独有版本。
    2. 堆。包含java程序创建的所有对象。不管一个对象被创建然后赋值给一个局部变量或者用来作为另一个对象的成员变量，这个对象仍然存放在堆上。
+## 线程通信
+
+1. 通过共享对象通信。
+2. 忙等待。
+3. wait()、notify()和notifyAll()。线程必须在同步块里调用`wait()`或`notify()`，不要使用全局对象，字符串常量等。应使用唯一的对象。
+4. 丢失的信号。(**MyWaitNotify2.java**)
+5. 假唤醒。线程在没有调用过`notify()`和`notifyAll()`的情况下醒来。(**MyWaitNotify3.java**)
+6. 多个线程等待相同信号。(**MyWaitNotify3.java**)
+7. 不要在字符串常量[**值为常量的变量**]或全局对象中调用wait()
