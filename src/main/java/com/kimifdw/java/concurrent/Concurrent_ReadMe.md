@@ -84,7 +84,7 @@
     2. 提高响应速度。
     3. 提高线程的可管理性。
 2.  使用
-                   `new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,milliseconds,runnableTaskQueue,handler)`
+                    `new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,milliseconds,runnableTaskQueue,handler)`
     1. corePoolSize(线程池的基本大小)：当提交一个任务到线程池时，线程池会创建一个线程来执行任务，即使其他空闲的基本线程能够执行新任务也会创建线程，等到需要执行的任务数大于线程池基本大小时不再创建。如果调用了线程池的**prestartAllCoreThreads**方法，线程池会提前创建并启动所有基本线程。
     2. runnableTaskQueue(任务队列)：用于保存等待执行的任务的阻塞队列，队列里处处的是以前提交的任务，需要等待线程空闲时执行。
         * ArrayBlockingQueue：基于数组结构的有界阻塞队列，FIFO（先进先出）
@@ -199,3 +199,17 @@
 3. ThreadLocal泛型。`private ThreadLocal myThreadLocal1 = new ThreadLocal<String>();`。
 4. 初始化ThreadLocal。重写initialValue方法可以让所有线程都可以看到初始化值。
 5. InheritableThreadLocal。为了解决ThreadLocal实例内部每个线程都只能看到自己的私有值，允许一个线程创建的所有子线程访问其父线程。
+## 死锁
+1. 定义。两个或更多线程阻塞着等待其它处于死锁状态的线程所持有的锁。
+2. 如何发现死锁。
+   1. 阅读code。检查嵌套的synchronized同步块代码或者调用synchronized方法。
+   2. 利用操作系统的命令。`kill -3`。能够打印当前应用里所有线程的状态。
+   3. 使用`jconsole`。
+3. 解决方案。
+   1. 加锁顺序。
+   2. 加锁时限。在尝试获取锁的时候加一个超时时间，若一个线程没有在给定的时限内成功获得所有需要的锁，则会进行回退并释放所有已经获得的锁，然后等待一段随机的时间再重试。不能对`synchronized`同步块设置超时时间
+   3. 死锁检测。
+      1. 针对那些不可能实现按序加锁并且锁超时也不可行的场景。
+      2. 解决方案。
+         1. 释放所有锁，回退，并且等待一段随机的时间后重试。
+         2. 给线程设置随机优先级。
