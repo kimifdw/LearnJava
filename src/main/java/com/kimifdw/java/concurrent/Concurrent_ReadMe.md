@@ -84,7 +84,7 @@
     2. 提高响应速度。
     3. 提高线程的可管理性。
 2.  使用
-                  `new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,milliseconds,runnableTaskQueue,handler)`
+                   `new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,milliseconds,runnableTaskQueue,handler)`
     1. corePoolSize(线程池的基本大小)：当提交一个任务到线程池时，线程池会创建一个线程来执行任务，即使其他空闲的基本线程能够执行新任务也会创建线程，等到需要执行的任务数大于线程池基本大小时不再创建。如果调用了线程池的**prestartAllCoreThreads**方法，线程池会提前创建并启动所有基本线程。
     2. runnableTaskQueue(任务队列)：用于保存等待执行的任务的阻塞队列，队列里处处的是以前提交的任务，需要等待线程空闲时执行。
         * ArrayBlockingQueue：基于数组结构的有界阻塞队列，FIFO（先进先出）
@@ -186,7 +186,6 @@
    1. 线程堆。每个运行在java虚拟机里的线程都拥有自己的线程栈。包含了这个线程调用的方法当前执行点相关的信息。一个线程仅能访问自己的线程栈，一个线程创建的本地变量对其他线程不可见。每个线程拥有每个本地变量的独有版本。
    2. 堆。包含java程序创建的所有对象。不管一个对象被创建然后赋值给一个局部变量或者用来作为另一个对象的成员变量，这个对象仍然存放在堆上。
 ## 线程通信
-
 1. 通过共享对象通信。
 2. 忙等待。
 3. wait()、notify()和notifyAll()。线程必须在同步块里调用`wait()`或`notify()`，不要使用全局对象，字符串常量等。应使用唯一的对象。
@@ -194,3 +193,9 @@
 5. 假唤醒。线程在没有调用过`notify()`和`notifyAll()`的情况下醒来。(**MyWaitNotify3.java**)
 6. 多个线程等待相同信号。(**MyWaitNotify3.java**)
 7. 不要在字符串常量[**值为常量的变量**]或全局对象中调用wait()
+## ThreadLocal
+1. 定义。创建的变量只被同一个线程进行读和写操作。`private ThreadLocal myThreadLocal  = new ThreadLocal();`，每个线程只能看到私有的ThreadLocal实例，所以不同的线程在给ThreadLocal对象设置不同的值时，他们也不能看到彼此的修改。
+2. 访问。`myThreadLocal.set("A thread local value");`或`String threadLocalValue = (String) myThreadLocal.get();`
+3. ThreadLocal泛型。`private ThreadLocal myThreadLocal1 = new ThreadLocal<String>();`。
+4. 初始化ThreadLocal。重写initialValue方法可以让所有线程都可以看到初始化值。
+5. InheritableThreadLocal。为了解决ThreadLocal实例内部每个线程都只能看到自己的私有值，允许一个线程创建的所有子线程访问其父线程。
