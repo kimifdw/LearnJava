@@ -5,6 +5,9 @@
 *.iml
 # User-specific stuff:
 .idea
+.project
+.classpath
+.settings/
 
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
