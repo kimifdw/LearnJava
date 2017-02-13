@@ -1,4 +1,4 @@
-# 并发
+* * # 并发
 
 ## 术语定义
 1. 共享变量：在多个线程之间能够被共享的变量。他们被存放在堆内存中，Volatile只作用于共享变量。
@@ -225,16 +225,11 @@
    1. 使用通知模式实现，当生产者往满的队列里添加元素时会阻塞住生产者，当小费者消费了一个队列中的元素后，会通知生产者当前队列可用。
    2. 利用重入锁(`ReentrantLock`)控制
 ## Fork/Join框架
-
 1. 定义：用于并行执行任务的框架，是把一个大任务分割成若干个小人物，最终汇总每个小任务结果后得到大任务结果的框架
-
 2. 两个类
-
    1. ForkJoinTask。(`RecursiveAction`：用于没有返回结果的任务；`RecursiveTask`：用于有返回的任务）
    2. ForkJoinPool
-
 3. 实现原理
-
    1. ForkJoinPool由`ForkJoinTask`数组[负责存放程序提交给ForkJoinPool的任务]和`ForkJoinWorkerThread`数组[负责执行这些人]组成
    2. ForkJoinTask的fork原理。调用`ForkJoinWorkerThread`的`pushTask`方法，将任务存放在ForkJoinWorkerThread队列里，调用`signalWork()`异步的执行这个任务，然后立即返回结果。
    3. ForkJoinTask的join方法。阻塞当前线程并等待获取结果，四种任务状态【已完成(NORMAL)、被取消(CANCELLED)、信号(SIGNAL)和异常(EXCEPTIONAL)】
