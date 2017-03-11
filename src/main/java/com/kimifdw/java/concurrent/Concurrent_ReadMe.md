@@ -208,7 +208,6 @@
     9. 如果采用method级的同步，则对象锁即为method所在的*对象*；如果是**静态方法**，对象锁即为method所在的*Class对象(唯一)*
     10. 静态方法一定会同步，非静态方法需在**单例模式**下生效。
 
-
 ## JAVA线程池的分析和使用
 1.  好处：
     1. 降低资源消耗。
@@ -310,7 +309,7 @@
 5. 假唤醒。线程在没有调用过`notify()`和`notifyAll()`的情况下醒来。(**MyWaitNotify3.java**)
 6. 多个线程等待相同信号。(**MyWaitNotify3.java**)
 7. 不要在字符串常量[**值为常量的变量**]或全局对象中调用wait()
-## ThreadLocal（线程封闭）
+## ThreadLocal（线程局部变量）
 1. 定义。创建的变量只被同一个线程进行读和写操作。`private ThreadLocal myThreadLocal  = new ThreadLocal();`，每个线程只能看到私有的ThreadLocal实例，所以不同的线程在给ThreadLocal对象设置不同的值时，他们也不能看到彼此的修改。防止对可变的单实例变量或全局变量进行共享。
 2. 访问。`myThreadLocal.set("A thread local value");`或`String threadLocalValue = (String) myThreadLocal.get();`当某个频繁执行的操作需要一个临时对象，而同时又希望避免在每次执行时都重新分配该临时对象，就可以使用ThreadLocal。
 3. ThreadLocal泛型。`private ThreadLocal myThreadLocal1 = new ThreadLocal<String>();`。
