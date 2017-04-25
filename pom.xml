@@ -13,6 +13,7 @@
     <modules>
         <module>project-kotlin</module>
         <module>project-java</module>
+        <module>project-netty</module>
     </modules>
 
 </project>
