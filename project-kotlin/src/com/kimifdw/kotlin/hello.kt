@@ -1,4 +1,4 @@
-package com.kimifdw.kotlin.introduction
+package com.kimifdw.kotlin
 
 /**
  * Created by kimiyu on 2017/1/23.

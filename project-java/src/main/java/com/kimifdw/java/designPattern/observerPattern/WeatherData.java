@@ -1,10 +1,11 @@
 package com.kimifdw.java.designPattern.observerPattern;
 
 import java.util.*;
+import java.util.Observer;
 
 public class WeatherData implements Subject{
 
-    private List<Observer> observers;
+    private List<java.util.Observer> observers;
     private float temperature;
     private float humidity;
     private float pressure;
@@ -37,12 +38,21 @@ public class WeatherData implements Subject{
         this.observers = new ArrayList<>();
     }
     // 注册观察者
-    public void registerObserver(Observer o){
+    public void registerObserver(java.util.Observer o){
         observers.add(o);
     }
 
+
+
+
+    @Override
+    public void registerObserver(com.kimifdw.java.designPattern.observerPattern.Observer o) {
+
+    }
+
     // 移除观察者
-    public void removeObserver(Observer o){
+    @Override
+    public void removeObserver(com.kimifdw.java.designPattern.observerPattern.Observer o) {
         int i = observers.indexOf(o);
         if (i>0){
             observers.remove(o);
@@ -54,8 +64,8 @@ public class WeatherData implements Subject{
      */
     public void notifyObservers(){
         for(int i=0;i<observers.size();i++){
-            Observer observer = (Observer) observers.get(i);
-            observer.update(temperature, humidity, pressure);
+            java.util.Observer observer = (Observer) observers.get(i);
+//            observer.update(observer., humidity);
         }
     }
 
