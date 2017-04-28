@@ -1,4 +1,4 @@
-package com.kimi.netty;
+package com.kimi.netty.chapter2;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
