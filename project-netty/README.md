@@ -12,3 +12,12 @@
 5. ChannelPipeline[包含多个ChannelHandler]
 ## chapter4
 1. TRANSPORT API
+## chapter5
+1. ByteBuf——Netty's data container
+    1. contain readIndex and writeIndex
+    2. default limit:Integer.MAX_VALUE
+    3. store data in the heap space of the JVM
+    4. pattern is similar to ByteBuffer.【Heap buffers,Direct buffers,Composite buffers】
+    5. ByteBuffer——java NIO's byte container
+2. interface ByteBufHolder
+
