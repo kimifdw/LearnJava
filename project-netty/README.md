@@ -20,4 +20,15 @@
     4. pattern is similar to ByteBuffer.【Heap buffers,Direct buffers,Composite buffers】
     5. ByteBuffer——java NIO's byte container
 2. interface ByteBufHolder
+## chapter6
+1. ChannelHandler 
+    1. Channel lifecycle.
+       ChannelRegistered[registered to an *EventLoop*]
+       -->ChannelActive[channel is active]
+       -->ChannelInactive[is not connected to the remote peer]
+       -->ChannelUnregistered[is not registered to EventLoop]
+    2. ChannelHandler lifecycle.ChannelHandler has been added to or removed from a ChannelPipeline.
+       1. ChannelInboundHandler.
+       2. ChannelOutboundHandler.
+2. ChannelPipeline
 
