@@ -21,7 +21,7 @@
     5. ByteBuffer——java NIO's byte container
 2. interface ByteBufHolder
 ## chapter6
-1. ChannelHandler 
+1. ChannelHandler[synchronization] 
     1. Channel lifecycle.
        ChannelRegistered[registered to an *EventLoop*]
        -->ChannelActive[channel is active]
@@ -31,4 +31,8 @@
        1. ChannelInboundHandler.
        2. ChannelOutboundHandler.
 2. ChannelPipeline
+## chapter7
+1. threading model overview
+2. interface eventloop
+
 
