@@ -34,5 +34,13 @@
 ## chapter7
 1. threading model overview
 2. interface eventloop
+## chapter8
+1. bootstrap class
+2. bootstrap client dataFlow.
+    1. Bootstrap will create a new Channel after bind() has been called,after which connect() is called to establish the connection.
+    2. Bootstrap will create a new channel when connect() is called.
+3. bootstrap server dataFlow.
+    1. A ServerChannel is created when bind() is called.
+    2. A new Channel is created by the ServerChannel when a connection is accepted.
 
 
