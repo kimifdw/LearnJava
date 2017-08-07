@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.kimifdw.java</groupId>
+    <groupId>com.kimi.netty</groupId>
     <artifactId>project-netty</artifactId>
 
     <properties>

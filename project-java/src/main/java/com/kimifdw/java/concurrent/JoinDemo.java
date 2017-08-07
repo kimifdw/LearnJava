@@ -18,11 +18,7 @@ public class JoinDemo {
             }
         });
 
-        Thread t2 = new Thread(new Runnable() {
-            public void run() {
-                System.out.println("Second task completed");
-            }
-        });
+        Thread t2 = new Thread(() -> System.out.println("Second task completed"));
 
         t.start();
         t2.start();
