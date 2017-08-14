@@ -35,8 +35,9 @@ public class EchoServer {
         final EchoServerHandler echoServerHandler = new EchoServerHandler();
         EventLoopGroup eventExecutors = new NioEventLoopGroup();
         try {
-            // ServerBootstrap绑定server
+            // 1. 初始化ServerBootstrap
             ServerBootstrap serverBootstrap = new ServerBootstrap();
+            // 2.
             serverBootstrap.group(eventExecutors)
                     .channel(NioServerSocketChannel.class)
                     .localAddress(new InetSocketAddress(port))
@@ -48,7 +49,7 @@ public class EchoServer {
                     });
             // 同步等待绑定完成
             ChannelFuture channelFuture = serverBootstrap.bind().sync();
-            // 同步等待关闭完成
+            // 同步等待关闭完成并释放所有线程
             channelFuture.channel().closeFuture().sync();
         } finally {
             eventExecutors.shutdownGracefully().sync();

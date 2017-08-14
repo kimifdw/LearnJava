@@ -8,10 +8,17 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.CharsetUtil;
 
 /**
+ * 客户端发送消息服务
  * Created by kimiyu on 2017/4/25.
  */
 @ChannelHandler.Sharable
 public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
+    /**
+     * 服务端接受请求后触发
+     *
+     * @param ctx
+     * @throws Exception
+     */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         // 发送消息
@@ -24,6 +31,13 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
         ctx.close();
     }
 
+    /**
+     * 服务端接收消息后触发
+     *
+     * @param channelHandlerContext
+     * @param byteBuf
+     * @throws Exception
+     */
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf) throws Exception {
         System.out.println("client received:" + byteBuf.toString(CharsetUtil.UTF_8));

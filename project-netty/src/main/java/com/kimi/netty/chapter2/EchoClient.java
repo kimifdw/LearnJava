@@ -11,7 +11,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import java.net.InetSocketAddress;
 
 /**
- * netty 客户端
+ * netty 客户端【类似于server端】
  * Created by kimiyu on 2017/4/25.
  */
 public class EchoClient {
