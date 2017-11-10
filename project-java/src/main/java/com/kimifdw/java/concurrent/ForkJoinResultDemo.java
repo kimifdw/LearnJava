@@ -100,6 +100,7 @@ class DocumentTask extends RecursiveTask<Integer> {
             int middle = (start + end) / 2;
             DocumentTask leftDocumentTask = new DocumentTask(document, start, middle, word);
             DocumentTask rightDocumentTask = new DocumentTask(document, middle, end, word);
+            // 同步操作
             invokeAll(leftDocumentTask, rightDocumentTask);
 
             try {
