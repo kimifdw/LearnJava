@@ -76,14 +76,14 @@ class FolderProcessor extends RecursiveTask<List<String>> {
         File content[] = file.listFiles();
 
         if (content != null && content.length > 0) {
-            for (int i = 0; i < content.length; i++) {
-                if (content[i].isDirectory()) {
-                    FolderProcessor folderProcessor = new FolderProcessor(content[i].getAbsolutePath(), extension);
+            for (File aContent : content) {
+                if (aContent.isDirectory()) {
+                    FolderProcessor folderProcessor = new FolderProcessor(aContent.getAbsolutePath(), extension);
                     folderProcessor.fork();
                     folderProcessors.add(folderProcessor);
                 } else {
-                    if (checkFile(content[i].getName())) {
-                        list.add(content[i].getAbsolutePath());
+                    if (checkFile(aContent.getName())) {
+                        list.add(aContent.getAbsolutePath());
                     }
                 }
             }
