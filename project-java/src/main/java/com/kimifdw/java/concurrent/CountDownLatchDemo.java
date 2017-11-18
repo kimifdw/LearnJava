@@ -16,6 +16,7 @@ public class CountDownLatchDemo implements Runnable{
 
         for (int i=0;i<nThreads;i++){
             Thread t = new Thread(){
+                @Override
                 public void run(){
                     try{
                         startGate.await(); // 等待startGate的线程执行完
