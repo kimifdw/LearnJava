@@ -1,4 +1,4 @@
-package com.kimifdw.java.concurrent;
+package com.kimifdw.java.concurrent.Synchronized;
 
 /**
  * Created by kimiyu on 2017/2/9.
