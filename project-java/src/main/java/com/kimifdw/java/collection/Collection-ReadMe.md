@@ -2,6 +2,19 @@
 1. 容器只能放对象，通过泛型机制实现。但其实质是由于java的单继承机制，因为所有的对象都是Object的子类。
 2. 接口，目前存在14种容器接口，实际开发中常用的有ArrayList，LinkedList，HashMap,HashSet,LinkedHashMap.
 3. 几乎所有的数据结构都采用数组和模拟指针这两种结构组合实现；
+## Collection接口
+1. 接口遍历
+    1. aggregate operations。(聚合操作【Java8】)
+    2. for-each。
+    3. Iterators。支持在遍历过程中remove element。
+2. 批处理。
+    1. containsAll。
+    2. addAll。
+    3. removeAll。`c.removeAll(Collections.singleton(e));`
+    4. retainAll。
+    5. clear。
+    其中addAll、removeAll、retainAll返回true.
+3. Array操作。toArray()
 ## ArrayList
 1. 顺序容器，即元素存放的数据与放进去的顺序相同，允许放入null元素，底层通过**数组**实现。
 2. 多线程环境，需要使用Vector。
