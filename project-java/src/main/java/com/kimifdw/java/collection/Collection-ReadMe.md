@@ -2,6 +2,8 @@
 1. 容器只能放对象，通过泛型机制实现。但其实质是由于java的单继承机制，因为所有的对象都是Object的子类。
 2. 接口，目前存在14种容器接口，实际开发中常用的有ArrayList，LinkedList，HashMap,HashSet,LinkedHashMap.
 3. 几乎所有的数据结构都采用数组和模拟指针这两种结构组合实现；
+4. 参考文献。
+    1. [oracle Java Tutorials](https://docs.oracle.com/javase/tutorial/collections/index.html)
 ## Collection接口
 1. 接口遍历
     1. aggregate operations。(聚合操作【Java8】)
@@ -15,6 +17,11 @@
     5. clear。
     其中addAll、removeAll、retainAll返回true.
 3. Array操作。toArray()
+4. 参考文献
+    1. [Java8里面的java.util.Spliterator接口有什么用？](https://segmentfault.com/q/1010000007087438)
+    2. [Java 8 stream 中Spliterator的使用(一)](http://blog.163.com/silver9886@126/blog/static/359718622017818916446/)
+    3. [Java 8 stream 中Spliterator的使用(二)](http://blog.163.com/silver9886@126/blog/static/35971862201782111627311/)
+    
 ## ArrayList
 1. 顺序容器，即元素存放的数据与放进去的顺序相同，允许放入null元素，底层通过**数组**实现。
 2. 多线程环境，需要使用Vector。
