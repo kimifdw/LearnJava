@@ -15,6 +15,7 @@
         <module>project-java</module>
         <module>project-netty</module>
         <module>spring-tips</module>
+        <module>project-hadoop</module>
     </modules>
 
 </project>
