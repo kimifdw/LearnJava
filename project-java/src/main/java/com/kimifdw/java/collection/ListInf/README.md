@@ -13,7 +13,7 @@
 3. sublist。返回的列表对象只能临时使用。
 4. 允许包含重复元素。
 5. 算法。
-    1. sort【排序算法】。无法对equal元素进行排序
+    1. sort【排序算法】。无法对equalA元素进行排序
     2. shuffle。随机交换list中的元素。
     3. reverse。 颠倒list的排序。
     4. rotate。轮询所有元素通过特殊的账号。
@@ -23,5 +23,4 @@
     8. copy。
     9. binarySearch。二分查找
 6. ArrayList
-    1. 
 7. LinkedList
