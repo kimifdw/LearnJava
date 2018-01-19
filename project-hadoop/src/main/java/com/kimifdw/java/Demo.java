@@ -14,7 +14,7 @@ import java.net.URI;
 public class Demo {
 
   public static void main(String[] args) {
-    String url = "hdfs://localhost:9000/";
+    String url = "hdfs://srv7.sanjiang.info:9000/";
     Configuration config = new Configuration();
     try {
       FileSystem fs = FileSystem.get(URI.create(url), config);
