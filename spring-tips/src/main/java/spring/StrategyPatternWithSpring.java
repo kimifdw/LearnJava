@@ -1,4 +1,4 @@
-package com.kimifdw.java.spring;
+package spring;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
