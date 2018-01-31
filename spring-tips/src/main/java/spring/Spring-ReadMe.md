@@ -46,6 +46,7 @@
 4. Web and remoting
     1. Web
     2. Web servlet
+    3. Reactive Web
 > 各版本spring的新增特性
 1. spring3.x：
     1. 增强了spring mvc，增加了对rest风格的web服务和web应用的支持
@@ -56,5 +57,6 @@
     2. 支持java8的新特性
     3. 支持基于groovy的编程开发
     4. 支持异步Rest-Template的异步回调
-    
+3. spring5.x:
+    1. 支持webflux方式
     

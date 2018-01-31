@@ -3,14 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-    <bean id="person1" destroy-method="myDestroy" init-method="myInit" class="com.kimifdw.java.spring.Person">
+    <bean id="person1" destroy-method="myDestroy" init-method="myInit" class="spring.Person">
         <property name="name">
             <value>kimifdw</value>
         </property>
     </bean>
 
-    <bean id="postProcessor" class="com.kimifdw.java.spring.MyBeanPostProcessor"/>
+    <bean id="postProcessor" class="spring.MyBeanPostProcessor"/>
 
-    <context:component-scan base-package="com.kimifdw.java.spring"></context:component-scan>
+    <context:component-scan base-package="spring"></context:component-scan>
 
 </beans>
