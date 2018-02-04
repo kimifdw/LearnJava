@@ -44,7 +44,7 @@ sudo echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <configuration>
 <property>
 <name>hadoop.tmp.dir</name>
-<value>/usr/local/hadoop/tmp</value>
+<value>/usr/local/hadoop-2.9/tmp</value>
 <description>A base for other temporary directories.</description>
 </property>
 <property>
@@ -56,9 +56,9 @@ uri's scheme determines the config property (fs.SCHEME.impl) naming
 the FileSystem implementation class. The uri's authority is used to
 determine the host, port, etc. for a filesystem.</description>
 </property>
-</configuration>" > /usr/local/hadoop/etc/hadoop/core-site.xml
+</configuration>" > /usr/local/hadoop-2.9/etc/hadoop/core-site.xml
 
-sudo cp /usr/local/hadoop/etc/hadoop/mapred-site.xml.template /usr/local/hadoop/etc/hadoop/mapred-site.xml
+sudo cp /usr/local/hadoop-2.9/etc/hadoop/mapred-site.xml.template /usr/local/hadoop-2.9/etc/hadoop/mapred-site.xml
 
 sudo echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>
@@ -71,8 +71,8 @@ at. If 'local', then jobs are run in-process as a single map
 and reduce task.
 </description>
 </property>
-</configuration>" > /usr/local/hadoop/etc/hadoop/mapred-site.xml
-
+</configuration>" > /usr/local/hadoop-2.9/etc/hadoop/mapred-site.xml
+R
 sudo rm -rf /usr/local/hadoop_store/hdfs/namenode
 sudo rm -rf /usr/local/hadoop_store/hdfs/datanode
 sudo mkdir -p /usr/local/hadoop_store/hdfs/namenode
@@ -94,13 +94,13 @@ The default is used if replication is not specified in create time.
 </property>
 <property>
 <name>dfs.namenode.name.dir</name>
-<value>/usr/local/hadoop_store/hdfs/namenode</value>
+<value>/usr/local/hadoop-2.9/hadoop_store/hdfs/namenode</value>
 </property>
 <property>
 <name>dfs.datanode.data.dir</name>
-<value>/usr/local/hadoop_store/hdfs/datanode</value>
+<value>/usr/local/hadoop-2.9/hadoop_store/hdfs/datanode</value>
 </property>
-</configuration>" > /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+</configuration>" > /usr/local/hadoop-2.9/etc/hadoop/hdfs-site.xml
 
 sudo echo "export PATH=$PATH:/usr/local/hadoop/bin" >> ~/.bashrc
 sudo echo "export PATH=$PATH:/usr/local/hadoop/sbin" >> ~/.bashrc
