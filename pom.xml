@@ -16,6 +16,7 @@
         <module>project-netty</module>
         <module>spring-tips</module>
         <module>project-hadoop</module>
+        <module>kafka-tips</module>
     </modules>
 
 </project>
