@@ -1,6 +1,6 @@
 package com.kimifdw.java.designPattern.observerPattern;
 
-import java.util.*;
+import java.util.Date;
 
 public class WatchingTVListener {
 

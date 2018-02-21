@@ -1,6 +1,7 @@
 package com.kimifdw.java.designPattern.observerPattern;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observer;
 
 public class WeatherData implements Subject {

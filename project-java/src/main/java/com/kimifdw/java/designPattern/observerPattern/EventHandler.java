@@ -1,6 +1,7 @@
 package com.kimifdw.java.designPattern.observerPattern;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 定义一个事件管理队列的类
