@@ -1,6 +1,6 @@
 package com.kimifdw.java.designPattern.observerPattern;
 
- /**
+/**
  * 观察者接口
  */
 public interface Observer {

@@ -10,27 +10,27 @@ public class Test {
     private int incNew = 0;
 
     // 无法保证increase的原子性
-    private void increase(){
+    private void increase() {
         inc++;
     }
 
     // 解决方案：
     // 1. 加同步锁保证原子性
-    public synchronized void increaseSync(){
+    public synchronized void increaseSync() {
         incNew++;
     }
 
     // 2. 加锁
     Lock lock = new ReentrantLock();
-    public void increaseLock(){
+
+    public void increaseLock() {
         lock.lock();
-        try{
-            incNew ++;
-        }finally {
+        try {
+            incNew++;
+        } finally {
             lock.unlock();
         }
     }
-
 
 
     public static void main(String[] args) {
@@ -45,7 +45,7 @@ public class Test {
             }).start();
         }
 
-        while (Thread.activeCount()>1){
+        while (Thread.activeCount() > 1) {
             Thread.yield();
         }
         System.out.println(test.inc);

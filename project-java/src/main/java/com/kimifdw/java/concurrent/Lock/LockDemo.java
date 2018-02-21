@@ -1,17 +1,17 @@
 package com.kimifdw.java.concurrent.Lock;
+
 /**
  * LockDemo
- * 
- * */
-public class LockDemo{
+ */
+public class LockDemo {
 
     private boolean isLocked = false;
 
     private Thread lockingThread = null;
 
-    public synchronized void lock() throws InterruptedException{
-        
-        while(isLocked){
+    public synchronized void lock() throws InterruptedException {
+
+        while (isLocked) {
             wait(); // 释放锁实例对应的同步锁，允许其他线程进入lock()方法
         }
         isLocked = true;
@@ -19,7 +19,7 @@ public class LockDemo{
     }
 
     public synchronized void unLocked() {
-        if(this.lockingThread != Thread.currentThread()){
+        if (this.lockingThread != Thread.currentThread()) {
             throw new IllegalMonitorStateException("Calling thread has not locked this lock");
         }
 

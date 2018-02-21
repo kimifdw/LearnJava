@@ -50,7 +50,7 @@ public class Counter {
      * 线程安全计数
      */
     private void safeCount() {
-         // 循环是防止atomicInteger.compareAndSet失败
+        // 循环是防止atomicInteger.compareAndSet失败
         for (; ; ) {
             int i = atomicInteger.get();
             boolean success = atomicInteger.compareAndSet(i, ++i);
