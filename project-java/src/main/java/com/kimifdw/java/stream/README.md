@@ -5,13 +5,14 @@
 3. 延迟执行：Stream的操作由零个或多个中间操作（intermediate operation）和一个结束操作（terminal operation）两部分组成。只有执行了结束操作，Stream定义的中间操作才会依次执行，这就是Stream的延迟特性。
 4. 可消费性：Stream只能被“消费”一次，一旦遍历过就会失效。就像容器的迭代器那样，想要再次遍历必须重新生成一个新的Stream。
 ## 接口
-1. Function：从T到R的一元映射函数，将参数T传递给一个函数，返回R
+1. Function：从T到R的一元映射函数，将参数T传递给一个函数，返回R；参数和返回结果类型不一致
     1. compose：嵌套关系
     2. andThen：转换了嵌套的顺序
     3. identity：传递自身的函数
-2. Predicate：谓词函数，作为一个谓词演算推导真假值存在，返回boolean的函数
-3. Consumer：从T到void的一元函数，接受一个入参但不返回任何结果的操作
-4. Supplier：结果的供应者
+2. Predicate：谓词函数，作为一个谓词演算推导真假值存在，返回boolean的函数；获取一个参数，返回一个boolean结果
+3. Consumer：从T到void的一元函数，接受一个入参但不返回任何结果的操作；接受一个参数，不返回结果；
+4. Supplier：结果的供应者；没有提供参数，返回一个值；
+5. Operator：返回结果类型与参数类型一致的函数；
 ## Strean的创建
 > 依赖底层的StreamSupport类来完成Stream的创建
 1. 通过集合的stream()方法或者parallelStream()
@@ -32,6 +33,20 @@
 2. 其他汇聚
     1. reduce
     2. count
-    
 ## 并行流
 > 本质是使用Fork/Join模型
+## Effective Java
+### Lambdas代替异名类
+1. 除非参数类型能让你的程序更清晰，不然都应该忽略他
+2. Lambdas缺少名称和文档；
+3. 如果计算不是自解释的，或者超过了几行【最多不超过3行】，就不要把它放在lambda中；
+4. 应该尽量避免序列号lambda;
+5. 除非必须创建非功能性接口的类型实例，否则不要为函数对象使用匿名类
+### 将方法引入代替lambda
+1. 如果方法引用小而且清晰，则使用；如果不是，则使用lambda
+### 使用标准功能接口
+1. 如果一个标准的功能接口完成了工作，那么您应该优先使用它，而不是专用的功能接口
+2. 不要试图使用基本的功能接口而不是原始的功能接口
+3. 总是用@FunctionalInterface标记那些函数接口
+### 明智而审慎地使用Stream
+
