@@ -17,6 +17,7 @@
         <module>spring-tips</module>
         <module>project-hadoop</module>
         <module>kafka-tips</module>
+        <module>spring-boot-tips</module>
     </modules>
 
 </project>
