@@ -13,28 +13,31 @@ import java.net.URI;
 
 public class Demo {
 
-  public static void main(String[] args) {
-    String url = "hdfs://srv7.sanjiang.info:9000/";
-    Configuration config = new Configuration();
-    try {
-      FileSystem fs = FileSystem.get(URI.create(url), config);
+    public static void main(String[] args) {
+        String url = "hdfs://srv7.sanjiang.info:9000/";
+        Configuration config = new Configuration();
+        try {
+            // 连接hdfs
+            FileSystem fs = FileSystem.get(URI.create(url), config);
 
-      FileStatus[] statuses = fs.listStatus(new Path("/demo/"));
-      for (FileStatus status : statuses) {
-        System.out.println(status);
-      }
+            // 获取文件列表
+            FileStatus[] statuses = fs.listStatus(new Path("/user/sjgw/demo/"));
+            for (FileStatus status : statuses) {
+                System.out.println(status);
+            }
 
-      FSDataOutputStream os = fs.create(new Path("/demo/hadoop.log"));
-      os.write("hello hadoop!你好,hadoop！".getBytes());
-      os.flush();
-      os.close();
+            // 写入数据
+            FSDataOutputStream os = fs.create(new Path("/user/sjgw/demo/hadoop.log"));
+            os.write("hello hadoop!你好,hadoop！".getBytes());
+            os.flush();
+            os.close();
 
-      InputStream is = fs.open(new Path("/demo/hadoop.log"));
-      IOUtils.copyBytes(is, System.out, 1024, true);
-    } catch (IOException ex) {
-      System.out.println(ex.getMessage());
+            InputStream is = fs.open(new Path("/user/sjgw/demo/hadoop.log"));
+            IOUtils.copyBytes(is, System.out, 1024, true);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+
     }
-
-
-  }
 }

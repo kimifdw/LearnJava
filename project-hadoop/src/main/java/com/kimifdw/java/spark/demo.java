@@ -1,5 +1,7 @@
 package com.kimifdw.java.spark;
 
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 public class demo {
@@ -13,7 +15,14 @@ public class demo {
                 .enableHiveSupport()
                 .getOrCreate();
 
-        sparkSession.sql("SELECT * FROM hema_fresh_dev.sjes_hema_order where id=4815680").show();
+        Dataset<Row> dataset = sparkSession.sql("SELECT * FROM hema_fresh_dev.sjes_hema_order");
+
+        dataset.explain();
+
+        for (String column : dataset.columns()) {
+            System.out.println("columnName:" + column);
+        }
+
 
         sparkSession.stop();
     }
