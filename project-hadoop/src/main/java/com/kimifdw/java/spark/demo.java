@@ -4,6 +4,8 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
+import static org.apache.spark.sql.functions.col;
+
 public class demo {
 
     public static void main(String[] args) {
@@ -18,6 +20,12 @@ public class demo {
         Dataset<Row> dataset = sparkSession.sql("SELECT * FROM hema_fresh_dev.sjes_hema_order");
 
         dataset.explain();
+
+        dataset.selectExpr("ORDER_ID")
+                .groupBy(col("ORDER_ID"));
+
+        sparkSession.range(500).toDF().collect();
+
 
         for (String column : dataset.columns()) {
             System.out.println("columnName:" + column);
